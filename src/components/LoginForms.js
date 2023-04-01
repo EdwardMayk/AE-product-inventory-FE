@@ -1,33 +1,50 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  
+  async function handleLogin(event) {
     event.preventDefault();
-    // Aquí podrías agregar la lógica para enviar los datos del formulario al servidor
-  };
+    const response = await fetch('http://localhost:3002/user/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+      
+    });
+    
+    if (response.ok) {
+      const user = await response.json();
+      console.log(user)
+      navigate('/home');
+      // Hacer algo con el usuario (por ejemplo, redireccionar a la página de inicio)
+    } else {
+      const data = await response.json();
+      setError(data.message);
+      
+    }
+  }
 
   return (
-    <form className="login-form" onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <label htmlFor="email">Email:</label>
-      <input type="email" id="email" value={email} onChange={handleEmailChange} required />
-      <label htmlFor="password">Password:</label>
-      <input type="password" id="password" value={password} onChange={handlePasswordChange} required />
-      <button type="submit">Submit</button>
+    <form onSubmit={handleLogin}>
+      {error && <div>{error}</div>}
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+      </div>
+      <div>
+        <label htmlFor="password">Contraseña:</label>
+        <input type="password" id="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+      </div>
+      <button type="submit">Iniciar sesión</button>
     </form>
-  );
-};
+  )};
 
 export default LoginForm;
