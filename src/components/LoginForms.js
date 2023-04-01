@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import './LoginForm.css';
 import { useNavigate } from 'react-router-dom';
 
-
-
-
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,6 +42,8 @@ const LoginForm = () => {
       </div>
       <button type="submit">Iniciar sesión</button>
     </form>
-  )};
+  )
+};
+
 
 export default LoginForm;
