@@ -17,7 +17,7 @@ class RegisterForm extends React.Component {
               <input type="text" id="apellidos" name="apellidos" required />
             </div>
             <div className="form-field">
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">Correo electrónico:</label>
               <input type="email" id="email" name="email" required />
             </div>
             <div className="form-field">
@@ -25,7 +25,7 @@ class RegisterForm extends React.Component {
               <input type="password" id="contraseña" name="contraseña" minLength={6} required />
             </div>
             <div className="form-field">
-              <label htmlFor="confirmar-contraseña">Confirme contraseña:</label>
+              <label htmlFor="confirmar-contraseña">Confirmar contraseña:</label>
               <input type="password" id="confirmar-contraseña" name="confirmar-contraseña" minLength={6} required />
             </div>
             <div className="form-field">
